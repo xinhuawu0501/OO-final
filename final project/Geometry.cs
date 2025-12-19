@@ -32,10 +32,15 @@ namespace final_project
             return peri;
         }
 
+        protected string BasicPropString(){
+            return $"周長: {Perimeter()}\n面積: {Area()}";
+        }
+
         protected abstract double Area();
         protected abstract bool isValid();
         protected abstract int ShapeType();
         protected abstract string PropertyString();
+    
 
 
     }

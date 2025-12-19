@@ -52,11 +52,11 @@ namespace final_project
             string typeStr = "";
             int type = ShapeType();
 
-            if (type == 1) typeStr = "凸五邊形 (Convex)";
-            else if (type == 2) typeStr = "凹五邊形 (Concave)";
+            if (type == 1) typeStr = "凸五邊形";
+            else if (type == 2) typeStr = "凹五邊形";
             else typeStr = "其他形狀";
 
-            return $"{typeStr}\n周長: {Perimeter()}\n面積: {Area()}";
+            return $"{typeStr}\n{BasicPropString()}";
         }
     }
 }
