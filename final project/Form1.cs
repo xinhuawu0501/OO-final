@@ -209,6 +209,11 @@ namespace final_project
             else if (num_of_side == 4) { 
                 Tetragon te = new Tetragon(points);
                 messageBox.Text = te.PropertyString();
+            }else if (num_of_side == 5){
+                Pentagon pen = new Pentagon(points);
+                messageBox.Text = te.PropertyString();
+            }else {
+                MessageBox.Show("Encountered error.");
             }
  
 
@@ -237,8 +242,7 @@ namespace final_project
 
         private void cShapeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            num_of_side = cShapeBox.SelectedIndex == 0 ? 3 : 4;
-            //clear old boxes
+            num_of_side = (cShapeBox.SelectedIndex == 0) ? 3 : (cShapeBox.SelectedIndex == 1) ? 4 : 5;            //clear old boxes
             if(coordTextBoxes == null)
             {
                 createCoordBox();
