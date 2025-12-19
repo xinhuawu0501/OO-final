@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace final_project
 {
-    class Point
+    class GeoPoint
     {
         public double xCoord;
         public double yCoord;
-        public double Distance(Point target)
+
+        public GeoPoint(double xCoord, double yCoord)
+        {
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+        }
+        public double Distance(GeoPoint target)
         {
             return Math.Sqrt((this.xCoord - target.xCoord) * (this.xCoord - target.xCoord) + (this.yCoord - target.yCoord) * (this.yCoord - target.yCoord));
         }
