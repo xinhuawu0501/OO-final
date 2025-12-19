@@ -4,17 +4,10 @@ using System.Linq;
 
 namespace final_project
 {
-    class Tetragon
+    class Tetragon: Geometry
     {
-        public GeoPoint[] ptArr = new GeoPoint[4];
-        public const double Tol = 1e-10;
-
-        public Tetragon(GeoPoint[] pointArr)
+        public Tetragon(GeoPoint[] pointArr): base(4, pointArr)
         {
-            if (pointArr.Length != 4)
-                throw new ArgumentException("Tetragon requires exactly 4 points.");
-
-            ptArr = pointArr;
             SortPointsClockwise();
         }
 
@@ -39,23 +32,10 @@ namespace final_project
             });
         }
 
-        private void SideLengths(double[] side)
-        {
-            for (int i = 0; i < 4; i++)
-                side[i] = ptArr[i].Distance(ptArr[(i + 1) % 4]);
-        }
-
         private void DiagonalLengths(double[] diag)
         {
             diag[0] = ptArr[0].Distance(ptArr[2]);
             diag[1] = ptArr[1].Distance(ptArr[3]);
-        }
-
-        public double Perimeter()
-        {
-            double[] s = new double[4];
-            SideLengths(s);
-            return s.Sum();
         }
 
         public double Area()
@@ -76,8 +56,6 @@ namespace final_project
         {
             if (Area() < Tol) return false;
 
-            double[] s = new double[4];
-            SideLengths(s);
             double sum = s.Sum();
             double max = s.Max();
 
@@ -118,9 +96,7 @@ namespace final_project
 
         public int ShapeType()
         {
-            double[] s = new double[4];
             double[] d = new double[2];
-            SideLengths(s);
             DiagonalLengths(d);
 
             bool allSidesEq = areAllSidesEqual(s);
@@ -136,9 +112,7 @@ namespace final_project
         }
         public double RadiusOfCircumcircle()
         {
-            double[] s = new double[4];
             double[] d = new double[2];
-            SideLengths(s);
             DiagonalLengths(d);
 
             double ptolemyDiff = Math.Abs((d[0] * d[1]) - ((s[0] * s[2]) + (s[1] * s[3])));

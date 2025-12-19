@@ -4,30 +4,11 @@ using System.Linq;
 
 namespace final_project
 {
-    class Pentagon
+    class Pentagon: Geometry
     {
-        public GeoPoint[] ptArr = new GeoPoint[5];
-        public const double Tol = 1e-10;
-
-        public Pentagon(GeoPoint[] pointArr)
+        public Pentagon(GeoPoint[] pointArr):base(5, pointArr)
         {
-            if (pointArr.Length == 5)
-                ptArr = pointArr;
         }
-
-        private void SideLengths(double[] side)
-        {
-            for (int i = 0; i < 5; i++)
-                side[i] = ptArr[i].Distance(ptArr[(i + 1) % 5]);
-        }
-
-        public double Perimeter()
-        {
-            double[] s = new double[5];
-            SideLengths(s);
-            return s.Sum();
-        }
-
 
         public double Area()
         {

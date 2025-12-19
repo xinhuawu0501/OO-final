@@ -7,54 +7,31 @@ using System.Threading.Tasks;
 
 namespace final_project
 {
-    class Triangle
+    class Triangle: Geometry
     {
-        public GeoPoint[] ptArr = new GeoPoint[3];
-        public const double Tol = 1e-10;
-
-        public Triangle(GeoPoint[] pointArr)
+        public Triangle(GeoPoint[] pointArr): base(3, pointArr)
         {
-            ptArr = pointArr;
-        }
-        private void SideLengths(double[] side)
-        {
-            for (int i = 0; i <= 2; i++)
-                side[i] = ptArr[i].Distance(ptArr[(i + 1) % 3]);
         }
    
-        public double Perimeter()
-        {
-            double[] s = new double[3];
-            SideLengths(s);
-            double sum = 0;
-
-            foreach (var element in s)
-                sum += element;
-
-            return (sum);
-        }
         public double Area()
         {
-            double[] s = new double[3];
-            SideLengths(s);
             double p = Perimeter() / 2;
-            return Math.Sqrt(p * (p - s[0]) * (p - s[1]) * (p - s[2]));
+            return Math.Sqrt(p * (p - side_length[0]) * (p - side_length[1]) * (p - side_length[2]));
         }
+
         public bool isValid()
         {
-            double[] s = new double[3];
-            SideLengths(s);
             for (int i = 0; i <= 2; i++)
             {
-                if ((Math.Abs(s[i] + s[(i + 1) % 3] - s[(i + 2) % 3]) < Tol))
+                if ((Math.Abs(side_length[i] + side_length[(i + 1) % 3] - side_length[(i + 2) % 3]) < Tol))
                     return false;
             }
             return true;
         }
+
         public bool isRight()
         {
-            double[] s = new double[3];
-            SideLengths(s);
+
             for (int i = 0; i <= 2; i++)
             {
                 if ((Math.Abs(s[i] * s[i] + s[(i + 1) % 3] * s[(i + 1) % 3] - s[(i + 2) % 3] * s[(i + 2) % 3]) < Tol))
@@ -62,14 +39,13 @@ namespace final_project
             }
             return false;
         }
+
         public bool isAcute()
         {
             bool flag = true;
-            double[] s = new double[3];
-            SideLengths(s);
             for (int i = 0; i <= 2; i++)
             {
-                if (s[i] * s[i] - s[(i + 1) % 3] * s[(i + 1) % 3] - s[(i + 2) % 3] * s[(i + 2) % 3] > Tol)
+                if (side_length[i] * side_length[i] - side_length[(i + 1) % 3] * side_length[(i + 1) % 3] - side_length[(i + 2) % 3] * side_length[(i + 2) % 3] > Tol)
                 {
                     flag = false;
                     break;
@@ -88,9 +64,7 @@ namespace final_project
         }
         public double RadiusOfCircumcircle()
         {
-            double[] s = new double[3];
-            SideLengths(s);
-            double CosAlpha = (s[1] * s[1] + s[2] * s[2] - s[0] * s[0]) / (2 * s[1] * s[2]);
+            double CosAlpha = (side_length[1] * side_length[1] + side_length[2] * side_length[2] - side_length[0] * side_length[0]) / (2 * side_length[1] * side_length[2]);
             double SinAlpha = Math.Sqrt(1 - CosAlpha * CosAlpha);
             return 0.5 * s[0] / SinAlpha;
         }
